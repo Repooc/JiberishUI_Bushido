@@ -1,0 +1,7 @@
+package-as: JiberishUI_Bushido
+manual-changelog:
+    filename: changelog.md
+    markup-type: markdown
+move-folders:
+    JiberishUI_Bushido/JiberishUI_Bushido: JiberishUI_Bushido
+enable-toc-creation: yes
