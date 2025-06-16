@@ -93,10 +93,9 @@ EP:HookInitialize(AddOnName, Initialize)
 
 hooksecurefunc(PI, 'RunInstall', function()
 	if JiberishUIBushidoDB.install_complete then return end
-	if not E:IsAddOnEnabled('ElvUI_EltreumUI') or E.private.ElvUI_EltreumUI.install_version then return end
 
-	if _G.PluginInstallFrame.Title:GetText() == ElvUI_EltreumUI.Name then
+	if _G.PluginInstallFrame.Title:GetText() ~= Engine.InstallerData.Title then
 		PI:CloseInstall()
-		Engine:Print(format('As part of the installation of Bushido profile, %s installer has been automatically skipped.', ElvUI_EltreumUI.Name))
+		Engine:Print(format('As part of the installation of Bushido profile, %s installer has been automatically skipped.', _G.PluginInstallFrame.Title:GetText()))
 	end
 end)
