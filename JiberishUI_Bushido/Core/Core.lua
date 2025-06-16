@@ -52,13 +52,31 @@ local function GetOptions()
 	end
 end
 
+local disabled = {}
+local function AllAddOnsEnabled()
+	wipe(disabled)
+	for addon in pairs(Engine.ProfileData) do
+		if addon ~= 'Blizzard' and addon ~= 'ElvUI' then
+			if not E:IsAddOnEnabled(addon) then
+				disabled[#disabled + 1] = addon
+			end
+		end
+	end
+	if #disabled > 0 then return false end
+	return true
+end
+
 local function Initialize()
 	if E.Retail then
 		E:AddLib('EditModeOverride', 'LibEditModeOverride-1.0-JIBERISH')
 	end
-
-	if not JiberishUIBushidoDB.install_complete then
+	local enabled = AllAddOnsEnabled()
+	if not JiberishUIBushidoDB.install_complete and enabled then
 		PI:Queue(Engine.InstallerData)
+	elseif not JiberishUIBushidoDB.install_complete and not enabled then
+		Engine:Print('Not all addons are enabled for the installer to automatically run. You may still use the setup buttons in ElvUI options to configure the profiles for the addons that are enabled.')
+		Engine:Print('The following addons are disabled:')
+		Engine:Print(table.concat(disabled, ', '))
 	end
 
 	EP:RegisterPlugin(AddOnName, GetOptions)
