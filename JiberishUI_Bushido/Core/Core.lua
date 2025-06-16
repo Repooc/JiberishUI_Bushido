@@ -76,6 +76,7 @@ local function Initialize()
 	if E.Retail then
 		E:AddLib('EditModeOverride', 'LibEditModeOverride-1.0-JIBERISH')
 	end
+
 	local enabled = AllAddOnsEnabled()
 	if not JiberishUIBushidoDB.install_complete and enabled then
 		PI:Queue(Engine.InstallerData)
