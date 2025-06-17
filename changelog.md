@@ -1,3 +1,3 @@
-v1.0.0 6/17/25
+v1.0.1 6/17/25
 
-• [New] Initial Release
+• [Update] Updated the WeakAura imports for Details & Map and Bushido Main
