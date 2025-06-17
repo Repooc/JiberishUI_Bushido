@@ -3,8 +3,8 @@
 ## Author: Jiberish, Repooc
 ## Version: 1.0.0
 ## Notes: An |cff1784d1ElvUI|r Profile Installer that was put together by Repooc that allows you to setup JibiershUI's Bushido profile with minimal effort.
-## RequiredDeps: ElvUI
-## OptionalDeps: !mMT_MediaPack, BigWigs, Details, ElvUI_EltreumUI, Plater, OmniCD, WeakAuras
+## RequiredDeps: ElvUI, ElvUI_EltreumUI, ElvUI_mMediaTag, JiberishMedia
+## OptionalDeps: BigWigs, Details, Plater, OmniCD, WeakAuras
 ## DefaultState: Enabled
 ## IconTexture: Interface\AddOns\JiberishUI_Bushido\Media\BushidoLogo256
 ## SavedVariables: JiberishUIBushidoDB
