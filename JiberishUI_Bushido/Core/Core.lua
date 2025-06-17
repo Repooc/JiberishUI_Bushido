@@ -62,12 +62,7 @@ local function AllAddOnsEnabled()
 			end
 		end
 	end
-	if not E:IsAddOnEnabled('JiberishMedia') then
-		disabled[#disabled + 1] = 'JiberishMedia'
-	end
-	if not E:IsAddOnEnabled('ElvUI_mMediaTag') then
-		disabled[#disabled + 1] = 'ElvUI_mMediaTag'
-	end
+
 	if #disabled > 0 then return false end
 	return true
 end
