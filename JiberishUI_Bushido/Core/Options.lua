@@ -28,7 +28,7 @@ local function GetCurrentProfile(addon, profile)
 	elseif addon == 'elvui' and profile == 'private' then
 		return E.charSettings:GetCurrentProfile()
 	elseif addon == 'details' then
-		return Details:GetCurrentProfileName()
+		return Details and Details:GetCurrentProfileName()
 	elseif addon == 'bigwigs' then
 		return Engine.BigWigs:GetCurrentProfileName()
 	elseif addon == 'omnicd' then
@@ -42,7 +42,7 @@ local function SetCurrentProfileHeader(addon, profileID)
 	if not addon or not Engine.ProfileData[addon] then return Engine:Print('Invalid addon argument.') end
 	if not profileID or profileID == '' then return Engine:Print('Invalid profile id argument.') end
 
-	local curProfile = ''
+	local curProfile, disabledText = '', '|cffff3300AddOn Disabled|r'
 	if addon == 'Blizzard' then
 		curProfile = GetBlizzardProfile()
 	elseif addon == 'ElvUI' and profileID == 'Profile1' then
@@ -50,13 +50,13 @@ local function SetCurrentProfileHeader(addon, profileID)
 	elseif addon == 'ElvUI' and profileID == 'Private1' then
 		curProfile =  E.charSettings:GetCurrentProfile()
 	elseif addon == 'Details' then
-		curProfile =  Details:GetCurrentProfileName()
+		curProfile =  E:IsAddOnEnabled('Details') and Details:GetCurrentProfileName() or disabledText
 	elseif addon == 'BigWigs' then
-		curProfile =  Engine.BigWigs:GetCurrentProfileName()
+		curProfile = E:IsAddOnEnabled('BigWigs') and Engine.BigWigs:GetCurrentProfileName() or disabledText
 	elseif addon == 'OmniCD' then
-		curProfile =  OmniCD and OmniCD[1].DB:GetCurrentProfile()
+		curProfile = E:IsAddOnEnabled('OmniCD') and OmniCD and OmniCD[1].DB:GetCurrentProfile() or disabledText
 	elseif addon == 'Plater' then
-		curProfile =  Plater and Plater.db:GetCurrentProfile()
+		curProfile = E:IsAddOnEnabled('Plater') and Plater and Plater.db:GetCurrentProfile() or disabledText
 	end
 
 	return format('Current Profile: |cff5CE1E6%s|r', curProfile)
@@ -114,41 +114,50 @@ local function configTable()
 	local BigWigs = Steps.args.BigWigs
 	BigWigs.args.Profile1Header = ACH:Header(SetCurrentProfileHeader('BigWigs', 'Profile1'), 1)
 	BigWigs.args.spacer = ACH:Spacer(3, 'full')
-	BigWigs.args.button1 = ACH:Execute(Engine.ProfileData.BigWigs.Profile1ButtonText, 'This will import the BigWigs profile.', 4, function() Engine:Print("i said no jib lol") end, nil, nil, 'full')
+	BigWigs.args.button1 = ACH:Execute(Engine.ProfileData.BigWigs.Profile1ButtonText, 'This will import the BigWigs profile.', 4, function() SetupProfileButton('BigWigs', 'Profile1') end, nil, nil, 'full', nil, nil, not E:IsAddOnEnabled('BigWigs'))
 
 	--* Blizzard (Retail Only)
 	local Blizzard = Steps.args.Blizzard
-	-- Blizzard.hidden = not E.Retail
-	-- Blizzard.args.profile = ACH:Description(format('Current Profile: |cff5CE1E6%s|r', GetCurrentProfile('blizzard')), 2, nil, nil, nil, nil, nil, 'full')
-	-- ACH:Header(name, order, get, set, hidden)
-	Blizzard.args.profile = ACH:Header(format('Current Profile: |cff5CE1E6%s|r', GetCurrentProfile('blizzard')), 2, nil, nil, not E.Retail)
-	-- ACH:Spacer(order, width, hidden)
-	Blizzard.args.spacer = ACH:Spacer(3, 'full', not E.Retail)
-	-- Blizzard.args.button1 = ACH:Execute(format('%s %s %s', 'Setup', E:TextureString([[Interface\AddOns\JiberishUI_Bushido\Media\Blizzard]], ':25:55'), 'Layout'), 'Re-Run step 2 of the installation process.', 50, function() end)
-	-- ACH:Execute(name, desc, order, func, image, confirm, width, get, set, disabled, hidden)
-	Blizzard.args.button1 = ACH:Execute(format('%s %s %s', 'Setup', E:TextureString([[Interface\AddOns\JiberishUI_Bushido\Media\Blizzard]], ':25:55'), 'Layout'), 'This will import the Blizzard layout.', 50, function() Engine:Print("i said no jib lol") end, nil, nil, 'full', nil, nil, nil, not E.Retail)
-	Blizzard.args.button2 = ACH:Execute('Setup Chat', 'Setup chat frame channels.', 51, function() Engine:Print("i said no jib lol") end, nil, nil, 'full', nil, nil, nil, not E.Retail)
+	Blizzard.args.Profile1Header = ACH:Header(SetCurrentProfileHeader('Blizzard', 'Profile1'), 2, nil, nil, not E.Retail)
+	Blizzard.args.spacer1 = ACH:Spacer(3, 'full', not E.Retail)
+	Blizzard.args.Profile1Button = ACH:Execute(format('%s %s %s', 'Setup', E:TextureString([[Interface\AddOns\JiberishUI_Bushido\Media\Blizzard]], ':25:55'), 'Layout'), 'This will import the Blizzard layout.', 50, function() SetupProfileButton('Blizzard', 'Profile1') end, nil, nil, 'full', nil, nil, nil, not E.Retail)
+	Blizzard.args.Profile2Button = ACH:Execute('Setup Chat', 'Setup chat frame channels.', 51, function() Engine.Blizzard:SetupChat() Engine:Print('Chat setup complete.') end, nil, nil, 'full')
 
 	--* Details
 	local Details = Steps.args.Details
-	Details.args.profile = ACH:Header(format('Current Profile: |cff5CE1E6%s|r', GetCurrentProfile('details')), 2)
-	Details.args.spacer = ACH:Spacer(3, 'full')
-	Details.args.button1 = ACH:Execute(Engine.ProfileData.Details.Profile1ButtonText, 'This will import the Details profile.', 4, function() Engine:Print("i said no jib lol") end, nil, nil, 'full')
+	Details.args.Profile1Header = ACH:Header(SetCurrentProfileHeader('Details', 'Profile1'), 2)
+	Details.args.spacer1 = ACH:Spacer(3, 'full')
+	Details.args.Profile1Button = ACH:Execute(Engine.ProfileData.Details.Profile1ButtonText, 'This will import the Details profile.', 4, function() SetupProfileButton('Details', 'Profile1') end, nil, nil, 'full')
 
 	--* ElvUI Global Profile
 	local ElvUI = Steps.args.ElvUI
 	ElvUI.args.globalHeader = ACH:Header('Global', 5)
-	ElvUI.args.globalButton = ACH:Execute(Engine.ProfileData.ElvUI.Global1ButtonText, 'This will import the ElvUI global profile.', 6, function() Engine:Print("i said no jib lol") end, nil, nil, 'full')
-	ElvUI.args.spacer2 = ACH:Spacer(7, 'full')
-
+	ElvUI.args.Global1Button = ACH:Execute(Engine.ProfileData.ElvUI.Global1ButtonText, 'This will import the ElvUI global profile.', 6, function() SetupProfileButton('ElvUI', 'Global1') end, nil, nil, 'full')
+	ElvUI.args.spacer1 = ACH:Spacer(7, 'full')
 	ElvUI.args.generalHeader = ACH:Header('General Profile', 10)
-	ElvUI.args.generalProfile = ACH:Header(format('Current Profile: |cff5CE1E6%s|r', GetCurrentProfile('elvui', 'general')), 11)
-	ElvUI.args.generalButton = ACH:Execute(Engine.ProfileData.ElvUI.Profile1ButtonText, 'This will import the ElvUI general profile.', 12, function() Engine:Print("i said no jib lol") end, nil, nil, 'full')
-	ElvUI.args.spacer3 = ACH:Spacer(13, 'full')
-
+	ElvUI.args.General1Header = ACH:Header(SetCurrentProfileHeader('ElvUI', 'Profile1'), 11)
+	ElvUI.args.General1Button = ACH:Execute(Engine.ProfileData.ElvUI.Profile1ButtonText, 'This will import the ElvUI general profile.', 12, function() SetupProfileButton('ElvUI', 'Profile1') end, nil, nil, 'full')
+	ElvUI.args.spacer2 = ACH:Spacer(13, 'full')
 	ElvUI.args.privateHeader = ACH:Header('Private Profile', 20)
-	ElvUI.args.privateProfile = ACH:Header(format('Current Profile: |cff5CE1E6%s|r', GetCurrentProfile('elvui', 'private')), 21)
-	ElvUI.args.privateButton = ACH:Execute(Engine.ProfileData.ElvUI.Private1ButtonText, 'This will import the ElvUI private profile.', 22, function() Engine:Print("i said no jib lol") end, nil, nil, 'full')
+	ElvUI.args.Private1Header = ACH:Header(SetCurrentProfileHeader('ElvUI', 'Private1'), 21)
+	ElvUI.args.Private1Button = ACH:Execute(Engine.ProfileData.ElvUI.Private1ButtonText, 'This will import the ElvUI private profile.', 22, function() SetupProfileButton('ElvUI', 'Private1') end, nil, nil, 'full')
+
+	--* NameplateSCT
+	local NameplateSCT = Steps.args.NameplateSCT
+	NameplateSCT.args.spacer1 = ACH:Spacer(1, 'full')
+	NameplateSCT.args.Profile1Button = ACH:Execute(Engine.ProfileData.NameplateSCT.Profile1ButtonText, 'This will import the NameplateSCT profile.', 10, function() SetupProfileButton('NameplateSCT', 'Profile1') end, nil, nil, 'full')
+
+	--* OmniCD
+	local OmniCD = Steps.args.OmniCD
+	OmniCD.args.Profile1Header = ACH:Header(SetCurrentProfileHeader('OmniCD', 'Profile1'), 2)
+	OmniCD.args.spacer1 = ACH:Spacer(3, 'full')
+	OmniCD.args.Profile1Button = ACH:Execute(Engine.ProfileData.OmniCD.Profile1ButtonText, 'This will import the OmniCD profile.', 10, function() SetupProfileButton('OmniCD', 'Profile1') end, nil, nil, 'full')
+
+	--* Plater
+	local Plater = Steps.args.Plater
+	Plater.args.Profile1Header = ACH:Header(SetCurrentProfileHeader('Plater', 'Profile1'), 2)
+	Plater.args.spacer1 = ACH:Spacer(3, 'full')
+	Plater.args.Profile1Button = ACH:Execute(Engine.ProfileData.Plater.Profile1ButtonText, 'This will import the Plater profile.', 10, function() SetupProfileButton('Plater', 'Profile1') end, nil, nil, 'full')
 
 	--* WeakAuras
 	local WeakAuras = Steps.args.WeakAuras
@@ -177,8 +186,6 @@ local function configTable()
 	Support.args.git = ACH:Execute(L["Ticket Tracker"], nil, 2, function() E:StaticPopup_Show('ELVUI_EDITBOX', nil, nil, 'https://github.com/Repooc/ElvUI_ActionBarBuddy/issues') end, nil, nil, 140)
 	Support.args.discord = ACH:Execute(L["Discord"], nil, 3, function() E:StaticPopup_Show('ELVUI_EDITBOX', nil, nil, 'https://repoocreforged.dev/discord') end, nil, nil, 140)
 
-
-
 	local credits = ACH:Group(L["Credits"], nil, 99)
 	options.args.credits = credits
 
@@ -190,5 +197,4 @@ local function configTable()
 	credits.args.thankyou = ACH:Description(E:TextGradient('Thank you to the JiberishUI Community & Supporters', 0.25, 0.78, 0.92, 0.64, 0.19, 0.79, 0.96, 0.55, 0.73), 7)
 	credits.args.supporterroles = ACH:Description(discordTextures, 10)
 end
--- ACH:Spacer(order, width, hidden)
 tinsert(Engine.Options, configTable)

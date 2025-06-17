@@ -376,7 +376,7 @@ Engine.InstallerData = {
 			PluginInstallFrame.Desc2:SetFormattedText('|cffFFD900%s|r', format('This page will setup the Plater profile for %s', config.Title))
 
 			PluginInstallFrame.Option1:SetEnabled(E:IsAddOnEnabled('Plater'))
-			PluginInstallFrame.Option1:SetScript('OnClick', function() SetupProfileButton('Plater', 'Profile1', GetPlaterDesc1Text) PluginInstallFrame.Desc1:SetText(GetPlaterDesc1Text()) end)
+			PluginInstallFrame.Option1:SetScript('OnClick', function() SetupProfileButton('Plater', 'Profile1', GetPlaterDesc1Text) end)
 			PluginInstallFrame.Option1:SetScript('onEnter', function() SetupOptionScripts('onEnter', Engine.ProfileData.Plater.Profile1Preview) end)
 			PluginInstallFrame.Option1:SetScript('onLeave', function() SetupOptionScripts('onLeave') end)
 			PluginInstallFrame.Option1:SetText('Setup Plater')
