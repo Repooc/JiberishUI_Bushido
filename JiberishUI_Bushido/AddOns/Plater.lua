@@ -6,7 +6,7 @@ Engine.Plater = {}
 local plater = Engine.Plater
 
 local function hasProfile(profileName)
-	if not profileName or profileName ~= '' then Engine:Print('You need to provide a profile name to check for.') return nil end
+	if not profileName or profileName == '' then Engine:Print('You need to provide a profile name to check for.') return nil end
 
 	return Plater.db.profiles[profileName] and true or false
 end
