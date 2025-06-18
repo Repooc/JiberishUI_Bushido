@@ -44,7 +44,7 @@ local function SetCurrentProfileHeader(addon, profileID)
 
 	local curProfile, disabledText = '', '|cffff3300AddOn Disabled|r'
 	if addon == 'Blizzard' then
-		curProfile = GetBlizzardProfile()
+		curProfile = GetBlizzardProfile() or disabledText
 	elseif addon == 'ElvUI' and profileID == 'Profile1' then
 		curProfile =  E.data:GetCurrentProfile()
 	elseif addon == 'ElvUI' and profileID == 'Private1' then
