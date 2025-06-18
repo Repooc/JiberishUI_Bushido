@@ -1,3 +1,3 @@
-v1.0.4 6/18/25
+v1.0.5 6/18/25
 
-• [Fix] fixed issues in the installer if plater or omnicd was disabled/not installed
+• [Fix] Fixed help section no one double checked

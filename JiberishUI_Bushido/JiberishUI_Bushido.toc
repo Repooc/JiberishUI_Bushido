@@ -1,7 +1,7 @@
 ## Interface: 110107, 40402, 11507
 ## Title: |cff1784d1JiberishUI|r |cff00ccffBushido|r
 ## Author: Jiberish, Repooc
-## Version: 1.0.4
+## Version: 1.0.5
 ## Notes: An |cff1784d1ElvUI|r Profile Installer that was put together by Repooc that allows you to setup JibiershUI's Bushido profile with minimal effort.
 ## RequiredDeps: ElvUI, ElvUI_EltreumUI, ElvUI_mMediaTag, JiberishMedia
 ## OptionalDeps: BigWigs, Details, Plater, OmniCD, WeakAuras
