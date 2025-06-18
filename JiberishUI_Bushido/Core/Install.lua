@@ -70,11 +70,11 @@ local function GetElvUIProfileDesc1Text()
 end
 
 local function GetOmniCDDesc1Text()
-	return format('%sCurrent Profile:|r %s%s|r|n%s(|rOmniCD Config %s>|r Profiles%s)|r', '|cffFFD900', '|cff5CE1E6', OmniCD[1].DB:GetCurrentProfile(), hexElvUIBlue, hexElvUIBlue, hexElvUIBlue)
+	return E:IsAddOnEnabled('OmniCD') and format('%sCurrent Profile:|r %s%s|r|n%s(|rOmniCD Config %s>|r Profiles%s)|r', '|cffFFD900', '|cff5CE1E6', OmniCD[1].DB:GetCurrentProfile(), hexElvUIBlue, hexElvUIBlue, hexElvUIBlue) or ''
 end
 
 local function GetPlaterDesc1Text()
-	return format('%sCurrent Profile:|r %s%s|r|n%s(|rPlater Config %s>|r Profiles %s>|r Profile Settings%s)|r', '|cffFFD900', '|cff5CE1E6', Plater.db:GetCurrentProfile(), hexElvUIBlue, hexElvUIBlue, hexElvUIBlue, hexElvUIBlue)
+	return E:IsAddOnEnabled('Plater') and format('%sCurrent Profile:|r %s%s|r|n%s(|rPlater Config %s>|r Profiles %s>|r Profile Settings%s)|r', '|cffFFD900', '|cff5CE1E6', Plater.db:GetCurrentProfile(), hexElvUIBlue, hexElvUIBlue, hexElvUIBlue, hexElvUIBlue) or ''
 end
 
 local function SetupProfileButton(addon, profileID, callback)
