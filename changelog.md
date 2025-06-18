@@ -1,3 +1,3 @@
-v1.0.2 6/17/25
+v1.0.3 6/18/25
 
-• [Fix] Fixed an error on non retail clients from the options
+• [Fix] Fixed an issue in plater setup
