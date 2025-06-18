@@ -1,3 +1,3 @@
-v1.0.1 6/17/25
+v1.0.2 6/17/25
 
-• [Update] Updated the WeakAura imports for Details & Map and Bushido Main
+• [Fix] Fixed an error on non retail clients from the options
