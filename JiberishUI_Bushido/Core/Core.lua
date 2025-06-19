@@ -84,7 +84,11 @@ end
 EP:HookInitialize(AddOnName, Initialize)
 
 hooksecurefunc(PI, 'RunInstall', function()
-	if JiberishUIBushidoDB.install_complete then return end
+	if JiberishUIBushidoDB.install_complete then
+		JiberishUIBushidoDB.SkipElvUIPrivateStep = nil
+		JiberishUIBushidoDB.SkipPlaterStep = nil
+		return
+	end
 
 	if _G.PluginInstallFrame.Title:GetText() ~= Engine.InstallerData.Title then
 		PI:CloseInstall()
