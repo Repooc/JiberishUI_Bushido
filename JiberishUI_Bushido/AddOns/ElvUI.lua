@@ -21,14 +21,14 @@ local function SetupScale()
 	local scale = Engine.ProfileData.ElvUI.Scale
 	if scale and scale ~= '' then
 		if (scale >= 0.1 and scale <= 1.25) then
-			print('Setting UI Scale to', scale)
 			E.global.general.UIScale = scale
+			Engine:Print(format('UI Scale set to %s', scale))
+			E:PixelScaleChanged()
+			scaleSet = true
 		else
 			Engine:Print('Invalid UI Scale provided in the config. Must be between 0.1 and 1.25.')
 		end
 	end
-	E:PixelScaleChanged()
-	scaleSet = true
 end
 
 local function SetImportedProfile(dataKey, dataProfile, force, callback)
