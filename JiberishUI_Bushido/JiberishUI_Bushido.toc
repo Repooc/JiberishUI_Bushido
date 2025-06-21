@@ -8,7 +8,6 @@
 ## DefaultState: Enabled
 ## IconTexture: Interface\AddOns\JiberishUI_Bushido\Media\BushidoLogo256
 ## SavedVariables: JiberishUIBushidoDB
-## X-SavedVariables: JiberishUIBushidoDB
 ## X-Curse-Project-ID: 1287060
 ## X-Wago-ID: x61zoEK1
 

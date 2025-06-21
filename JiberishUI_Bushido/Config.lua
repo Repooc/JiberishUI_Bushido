@@ -1,8 +1,7 @@
 local AddOnName, Engine = ...
 local E = unpack(ElvUI)
 
-Engine.Config.MinElvUI = 13.90 --* Minimum version of ElvUI this profile should support
--- Engine.Config.Logo = [[Interface\AddOns\JiberishUI_Bushido\Media\BushidoLogo512]] --* Fallback Logo image that is shown in the installer
+Engine.Config.MinElvUI = 13.92 --* Minimum version of ElvUI this profile should support
 Engine.Config.Logo = [[Interface\AddOns\JiberishUI_Bushido\Media\BushidoLogo1024x1024DuelBuilding3Resize1]] --* Fallback Logo image that is shown in the installer
 Engine.Config.Discord = 'https://discord.gg/jiberish'
 Engine.Config.Installer = {

@@ -65,7 +65,7 @@ function omniCD:Decode(data)
 end
 
 function omniCD:SetupProfile(profileString, profileID)
-	if not E:IsAddOnEnabled('OmniCD') then Engine:Print(format('%s is |cffff3300disabled|r!', 'OmniCD')) return end
+	if not E:IsAddOnEnabled('OmniCD') then Engine:Print('OmniCD is |cffff3300disabled|r!') return end
 	if not profileString then return Engine:Print('No profile string provided.') end
 
 	local profileName = Engine.ProfileData.OmniCD[profileID..'Name']

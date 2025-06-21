@@ -1,6 +1,6 @@
 <Ui xmlns='http://www.blizzard.com/wow/ui/'>
-	<Script file='Blizzard.lua'/>
 	<Script file='BigWigs.lua'/>
+	<Script file='Blizzard.lua'/>
 	<Script file='Details.lua'/>
 	<Script file='ElvUI.lua'/>
 	<Script file='NameplateSCT.lua'/>

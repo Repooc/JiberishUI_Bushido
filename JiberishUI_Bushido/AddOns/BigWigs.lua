@@ -26,7 +26,7 @@ local function BigWigsCallback(completed)
 end
 
 function bigwigs:SetupProfile(profile, profileID)
-	if not E:IsAddOnEnabled('BigWigs') then Engine:Print(format('%s is |cffff3300disabled|r!', 'BigWigs')) return end
+	if not E:IsAddOnEnabled('BigWigs') then Engine:Print('BigWigs is |cffff3300disabled|r!') return end
 	if not profile then return Engine:Print('No profile string provided.') end
 
 	local profileName = Engine.ProfileData.BigWigs[profileID..'Name']

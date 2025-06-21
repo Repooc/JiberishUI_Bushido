@@ -92,6 +92,6 @@ hooksecurefunc(PI, 'RunInstall', function()
 
 	if _G.PluginInstallFrame.Title:GetText() ~= Engine.InstallerData.Title then
 		PI:CloseInstall()
-		Engine:Print(format('As part of the installation of Bushido profile, %s installer has been automatically skipped.', _G.PluginInstallFrame.Title:GetText()))
+		Engine:Print(format('As part of the installation of %s profile, %s installer has been automatically skipped.', Engine.InstallerData.Title, _G.PluginInstallFrame.Title:GetText()))
 	end
 end)

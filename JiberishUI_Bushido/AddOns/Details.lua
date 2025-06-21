@@ -53,7 +53,7 @@ local function SetImportedProfile(dataKey, dataProfile, force, callback)
 end
 
 function details:SetupProfile(profile, profileID, callback)
-	if not E:IsAddOnEnabled('Details') then Engine:Print(format('%s is |cffff3300disabled|r!', 'Details')) return end
+	if not E:IsAddOnEnabled('Details') then Engine:Print('Details is |cffff3300disabled|r!') return end
 	if not profile then return Engine:Print('No profile string provided.') end
 
 	local profileName = Engine.ProfileData.Details[profileID..'Name']

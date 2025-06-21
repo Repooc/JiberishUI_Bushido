@@ -2,7 +2,6 @@ local AddOnName, Engine = ...
 local E, L = unpack(ElvUI)
 local D = E.Distributor
 local PI = E.PluginInstaller
-local AS = E:IsAddOnEnabled('AddOnSkins') and unpack(AddOnSkins)
 
 local config = Engine.Config
 local hexElvUIBlue = '|cff1785d1'
