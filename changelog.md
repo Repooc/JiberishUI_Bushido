@@ -1,3 +1,3 @@
-v1.0.5 6/18/25
+v1.0.6 6/20/25
 
-• [Fix] Fixed help section no one double checked
+• [Fix] Installer has been ran check was suppose to be per character but was checking for all characters.
