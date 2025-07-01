@@ -1,3 +1,3 @@
-v1.0.6 6/20/25
+v1.0.7 7/1/25
 
-• [Fix] Installer has been ran check was suppose to be per character but was checking for all characters.
+• [Update] Bump toc for MoP Release
