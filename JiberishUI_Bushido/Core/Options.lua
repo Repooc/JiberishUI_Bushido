@@ -100,7 +100,7 @@ local function configTable()
 	E.Options.args.JiberishUIBushido = options
 	options.args.logo = ACH:Description('', 1, nil, 'Interface\\AddOns\\JiberishUI_Bushido\\Media\\BusdhidoLogo512', nil, 160, 160)
 	options.args.header = ACH:Header(format('|cff99ff33%s|r', config.Version), 2)
-	options.args.installButton = ACH:Execute('Run Installer', 'This will launch the step by step installer.', 3, function() PI:Queue(Engine.InstallerData) E:ToggleOptions() end)
+	options.args.installButton = ACH:Execute('Run Installer', 'This will launch the step by step installer.', 3, function() JiberishUIBushidoDB.install_complete = nil PI:Queue(Engine.InstallerData) E:ToggleOptions() end)
 
 	local Steps = ACH:Group(L["AddOn Steps"], nil, 1)
 	options.args.steps = Steps
