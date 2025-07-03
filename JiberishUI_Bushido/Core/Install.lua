@@ -99,9 +99,9 @@ local function SetWeakAuraButtonText(profileID)
 end
 
 local function SetupOptionPreview()
-	if not PluginInstallFrame.optionPreview then
-		PluginInstallFrame.optionPreview = PluginInstallFrame:CreateTexture()
-		PluginInstallFrame.optionPreview:SetAllPoints(PluginInstallFrame)
+	if not _G.PluginInstallFrame.optionPreview then
+		_G.PluginInstallFrame.optionPreview = _G.PluginInstallFrame:CreateTexture()
+		_G.PluginInstallFrame.optionPreview:SetAllPoints(_G.PluginInstallFrame)
 	end
 end
 
@@ -118,17 +118,17 @@ local function SetupOptionScripts(script, texture)
 			-- UIFrameFadeOut(PluginInstallFrame.Desc4, 0.4, 1, 0)
 			-- UIFrameFadeOut(PluginInstallFrame.SubTitle, 0.4, 1, 0)
 
-			UIFrameFadeIn(PluginInstallFrame.optionPreview, 0.5, PluginInstallFrame.optionPreview:GetAlpha(), 0.7)
-			UIFrameFadeOut(PluginInstallFrame.tutorialImage, 0.4, PluginInstallFrame.tutorialImage:GetAlpha(), 0)
-			UIFrameFadeOut(PluginInstallFrame.Title, 0.4, PluginInstallFrame.Title:GetAlpha(), 0)
-			UIFrameFadeOut(PluginInstallFrame.Prev, 0.4, PluginInstallFrame.Prev:GetAlpha(), 0)
-			UIFrameFadeOut(PluginInstallFrame.Status, 0.4, PluginInstallFrame.Status:GetAlpha(), 0)
-			UIFrameFadeOut(PluginInstallFrame.Next, 0.4, PluginInstallFrame.Next:GetAlpha(), 0)
-			UIFrameFadeOut(PluginInstallFrame.Desc1, 0.4, PluginInstallFrame.Desc1:GetAlpha(), 0)
-			UIFrameFadeOut(PluginInstallFrame.Desc2, 0.4, PluginInstallFrame.Desc2:GetAlpha(), 0)
-			UIFrameFadeOut(PluginInstallFrame.Desc3, 0.4, PluginInstallFrame.Desc3:GetAlpha(), 0)
-			UIFrameFadeOut(PluginInstallFrame.Desc4, 0.4, PluginInstallFrame.Desc4:GetAlpha(), 0)
-			UIFrameFadeOut(PluginInstallFrame.SubTitle, 0.4, PluginInstallFrame.SubTitle:GetAlpha(), 0)
+			UIFrameFadeIn(_G.PluginInstallFrame.optionPreview, 0.5, _G.PluginInstallFrame.optionPreview:GetAlpha(), 0.7)
+			UIFrameFadeOut(_G.PluginInstallFrame.tutorialImage, 0.4, _G.PluginInstallFrame.tutorialImage:GetAlpha(), 0)
+			UIFrameFadeOut(_G.PluginInstallFrame.Title, 0.4, _G.PluginInstallFrame.Title:GetAlpha(), 0)
+			UIFrameFadeOut(_G.PluginInstallFrame.Prev, 0.4, _G.PluginInstallFrame.Prev:GetAlpha(), 0)
+			UIFrameFadeOut(_G.PluginInstallFrame.Status, 0.4, _G.PluginInstallFrame.Status:GetAlpha(), 0)
+			UIFrameFadeOut(_G.PluginInstallFrame.Next, 0.4, _G.PluginInstallFrame.Next:GetAlpha(), 0)
+			UIFrameFadeOut(_G.PluginInstallFrame.Desc1, 0.4, _G.PluginInstallFrame.Desc1:GetAlpha(), 0)
+			UIFrameFadeOut(_G.PluginInstallFrame.Desc2, 0.4, _G.PluginInstallFrame.Desc2:GetAlpha(), 0)
+			UIFrameFadeOut(_G.PluginInstallFrame.Desc3, 0.4, _G.PluginInstallFrame.Desc3:GetAlpha(), 0)
+			UIFrameFadeOut(_G.PluginInstallFrame.Desc4, 0.4, _G.PluginInstallFrame.Desc4:GetAlpha(), 0)
+			UIFrameFadeOut(_G.PluginInstallFrame.SubTitle, 0.4, _G.PluginInstallFrame.SubTitle:GetAlpha(), 0)
 		end
 	elseif script == 'onLeave' then
 		--* Not sure which one is feels better
@@ -140,39 +140,39 @@ local function SetupOptionScripts(script, texture)
 		-- UIFrameFadeIn(PluginInstallFrame.Desc4, 0.4, 0, 1)
 		-- UIFrameFadeIn(PluginInstallFrame.SubTitle, 0.4, 0, 1)
 
-		UIFrameFadeOut(PluginInstallFrame.optionPreview, 0.5, PluginInstallFrame.optionPreview:GetAlpha(), 0)
-		UIFrameFadeIn(PluginInstallFrame.tutorialImage, 0.4, PluginInstallFrame.tutorialImage:GetAlpha(), 1)
-		UIFrameFadeIn(PluginInstallFrame.Title, 0.4, PluginInstallFrame.Title:GetAlpha(), 1)
-		UIFrameFadeIn(PluginInstallFrame.Prev, 0.4, PluginInstallFrame.Prev:GetAlpha(), 1)
-		UIFrameFadeIn(PluginInstallFrame.Status, 0.4, PluginInstallFrame.Status:GetAlpha(), 1)
-		UIFrameFadeIn(PluginInstallFrame.Next, 0.4, PluginInstallFrame.Next:GetAlpha(), 1)
-		UIFrameFadeIn(PluginInstallFrame.Desc1, 0.4, PluginInstallFrame.Desc1:GetAlpha(), 1)
-		UIFrameFadeIn(PluginInstallFrame.Desc2, 0.4, PluginInstallFrame.Desc2:GetAlpha(), 1)
-		UIFrameFadeIn(PluginInstallFrame.Desc3, 0.4, PluginInstallFrame.Desc3:GetAlpha(), 1)
-		UIFrameFadeIn(PluginInstallFrame.Desc4, 0.4, PluginInstallFrame.Desc4:GetAlpha(), 1)
-		UIFrameFadeIn(PluginInstallFrame.SubTitle, 0.4, PluginInstallFrame.SubTitle:GetAlpha(), 1)
+		UIFrameFadeOut(_G.PluginInstallFrame.optionPreview, 0.5, _G.PluginInstallFrame.optionPreview:GetAlpha(), 0)
+		UIFrameFadeIn(_G.PluginInstallFrame.tutorialImage, 0.4, _G.PluginInstallFrame.tutorialImage:GetAlpha(), 1)
+		UIFrameFadeIn(_G.PluginInstallFrame.Title, 0.4, _G.PluginInstallFrame.Title:GetAlpha(), 1)
+		UIFrameFadeIn(_G.PluginInstallFrame.Prev, 0.4, _G.PluginInstallFrame.Prev:GetAlpha(), 1)
+		UIFrameFadeIn(_G.PluginInstallFrame.Status, 0.4, _G.PluginInstallFrame.Status:GetAlpha(), 1)
+		UIFrameFadeIn(_G.PluginInstallFrame.Next, 0.4, _G.PluginInstallFrame.Next:GetAlpha(), 1)
+		UIFrameFadeIn(_G.PluginInstallFrame.Desc1, 0.4, _G.PluginInstallFrame.Desc1:GetAlpha(), 1)
+		UIFrameFadeIn(_G.PluginInstallFrame.Desc2, 0.4, _G.PluginInstallFrame.Desc2:GetAlpha(), 1)
+		UIFrameFadeIn(_G.PluginInstallFrame.Desc3, 0.4, _G.PluginInstallFrame.Desc3:GetAlpha(), 1)
+		UIFrameFadeIn(_G.PluginInstallFrame.Desc4, 0.4, _G.PluginInstallFrame.Desc4:GetAlpha(), 1)
+		UIFrameFadeIn(_G.PluginInstallFrame.SubTitle, 0.4, _G.PluginInstallFrame.SubTitle:GetAlpha(), 1)
 	end
 end
 
 local function resizeInstaller(reset)
 	if reset then
 		--* Defaults
-		PluginInstallFrame:SetSize(450, 50)
-		PluginInstallFrame.Desc1:ClearAllPoints()
-		PluginInstallFrame.Desc1:SetPoint('TOPLEFT', _G.PluginInstallFrame, 'TOPLEFT', 20, -75)
+		_G.PluginInstallFrame:SetSize(450, 50)
+		_G.PluginInstallFrame.Desc1:ClearAllPoints()
+		_G.PluginInstallFrame.Desc1:SetPoint('TOPLEFT', _G.PluginInstallFrame, 'TOPLEFT', 20, -75)
 
 		return
 	end
 
-	PluginInstallFrame:SetSize(1040, 520)
-	PluginInstallFrame.Desc1:ClearAllPoints()
-	PluginInstallFrame.Desc1:SetPoint('TOP', _G.PluginInstallFrame.SubTitle, 'BOTTOM', 0, -30)
+	_G.PluginInstallFrame:SetSize(1040, 520)
+	_G.PluginInstallFrame.Desc1:ClearAllPoints()
+	_G.PluginInstallFrame.Desc1:SetPoint('TOP', _G.PluginInstallFrame.SubTitle, 'BOTTOM', 0, -30)
 end
 
 local function resetButtonScripts()
 	for i = 1, 4 do
-		_G['PluginInstallFrame']['Option'..i]:SetScript('onEnter', nil)
-		_G['PluginInstallFrame']['Option'..i]:SetScript('onLeave', nil)
+		_G.PluginInstallFrame['Option'..i]:SetScript('onEnter', nil)
+		_G.PluginInstallFrame['Option'..i]:SetScript('onLeave', nil)
 	end
 end
 
@@ -181,7 +181,6 @@ Engine.InstallerData = {
 	Title = format('%s |cffFFD900%s|r', config.Title, L["Installation"]),
 	Name = config.Title,
 	tutorialImage = config.Logo,
-	-- tutorialImageSize = { 256, 256 },
 	tutorialImageSize = { 384, 384 },
 	tutorialImagePoint = { 0, 0 },
 	Pages = {
@@ -358,7 +357,6 @@ Engine.InstallerData = {
 			PluginInstallFrame.Option1:SetScript('onLeave', function() SetupOptionScripts('onLeave') end)
 			PluginInstallFrame.Option1:SetText(Engine.ProfileData.OmniCD.Profile1ButtonText)
 			PluginInstallFrame.Option1:Show()
-
 		end,
 		[9] = function()
 			--* Plater
@@ -369,7 +367,7 @@ Engine.InstallerData = {
 			PluginInstallFrame.tutorialImage:SetTexture(fileName)
 			PluginInstallFrame.tutorialImage:SetSize(size[1], size[2])
 
-			PluginInstallFrame.SubTitle:SetFormattedText('|cffFFD900%s|r', 'Plater')
+			PluginInstallFrame.SubTitle:SetText('|cffFFD900Plater|r')
 
 			PluginInstallFrame.Desc1:SetText(GetPlaterDesc1Text())
 			PluginInstallFrame.Desc2:SetFormattedText('|cffFFD900%s|r', format('This page will setup the Plater profile for %s', config.Title))
@@ -399,7 +397,6 @@ Engine.InstallerData = {
 			PluginInstallFrame.Option1:SetText('Setup NameplateSCT')
 			PluginInstallFrame.Option1:Show()
 		end,
-
 		[11] = function()
 			--* WeakAuras
 			resizeInstaller()
