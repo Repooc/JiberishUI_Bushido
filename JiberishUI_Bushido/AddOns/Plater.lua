@@ -43,12 +43,12 @@ local function SetImportedProfile(dataKey, dataProfile, force, callback)
 	end
 end
 
-function plater:SetupProfile(profile, profileID, callback)
+function plater:SetupProfile(profileString, profileID, callback)
 	if not E:IsAddOnEnabled('Plater') then Engine:Print(format('%s is |cffff3300disabled|r!', 'Plater')) return end
-	if not profile then return Engine:Print('No profile string provided.') end
+	if not profileString then return Engine:Print('No profile string provided.') end
 
 	local profileName = Engine.ProfileData.Plater[profileID..'Name']
 	if not profileName or profileName == '' then return Engine:Print('No profile name provided in the config for this profile.') end
 
-	SetImportedProfile(profileName, profile, false, callback)
+	SetImportedProfile(profileName, profileString, false, callback)
 end

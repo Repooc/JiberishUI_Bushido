@@ -70,7 +70,7 @@ local function UpdateCurrentProfileHeder(addon, profileID)
 end
 
 local function SetWeakAuraHeader(profileID)
-	if not profileID then return Engine:Print('Invalid profile id argument.') end
+	if not profileID or profileID == '' then return Engine:Print('Invalid profile id argument.') end
 	local profileString = Engine.ProfileData.WeakAuras[profileID..'String']
 	if not profileString or profileString == '' then return Engine:Print('No profile string provided.') end
 	local doesExist = Engine.WeakAuras:doesAuraExist(profileString)
