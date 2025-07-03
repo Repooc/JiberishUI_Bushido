@@ -70,12 +70,11 @@ end
 local function Initialize()
 	if E.Retail then E:AddLib('EditModeOverride', 'LibEditModeOverride-1.0-JIBERISH') end
 
-	local enabled = AllAddOnsEnabled()
-	if not JiberishUIBushidoDB.install_complete and enabled then
+	if not JiberishUIBushidoDB.install_complete then
 		PI:Queue(Engine.InstallerData)
-	elseif not JiberishUIBushidoDB.install_complete and not enabled then
-		Engine:Print('Not all addons are enabled for the installer to automatically run. You may still use the setup buttons in ElvUI options to configure the profiles for the addons that are enabled.')
-		Engine:Print(format('The following addons are disabled: %s', table.concat(disabled, ', ')))
+		if not AllAddOnsEnabled() then
+			Engine:Print('Not all addons are enabled for the installer to be used as intended. You may still use the installer to configure the profiles for the addons that are enabled.')
+		end
 	end
 
 	EP:RegisterPlugin(AddOnName, GetOptions)
