@@ -64,20 +64,40 @@ local function BlizzardDesc1Text()
 	_G.PluginInstallFrame.Desc1:SetText(format('%sCurrent Layout:|r %s%s|r|n%s(|rHit ESC %s>|r Edit Mode %s>|r Layout%s)|r', '|cffFFD900', '|cff5CE1E6', activeLayout, hexElvUIBlue, hexElvUIBlue, hexElvUIBlue, hexElvUIBlue))
 end
 
-local function GetDetailsDesc1Text()
-	return E:IsAddOnEnabled('Details') and format('%sCurrent Profile:|r %s%s|r|n%s(|rDetails Config %s>|r Options %s>|r Profiles%s)|r', '|cffFFD900', '|cff5CE1E6', Details:GetCurrentProfileName(), hexElvUIBlue, hexElvUIBlue, hexElvUIBlue, hexElvUIBlue) or ''
+local function DetailsDesc1Text()
+	_G.PluginInstallFrame.Desc1:SetText(E:IsAddOnEnabled('Details') and format('%sCurrent Profile:|r %s%s|r|n%s(|rDetails Config %s>|r Options %s>|r Profiles%s)|r', '|cffFFD900', '|cff5CE1E6', Details:GetCurrentProfileName(), hexElvUIBlue, hexElvUIBlue, hexElvUIBlue, hexElvUIBlue) or '')
 end
 
-local function GetElvUIProfileDesc1Text()
+local function DetailsDesc2Text()
+	return E:IsAddOnEnabled('Details') and format('|cffFFD900This page will setup the Details profile for %s|r', config.Title) or ''
+end
+
+local function DetailsDesc3Text()
+	return not E:IsAddOnEnabled('Details') and '|cffFF3333WARNING:|r Details! is not enabled to configure.' or ''
+end
+
+local function ElvUIProfileDescText()
 	return format('%sCurrent Profile:|r %s%s|r|n%s(|rElvUI Config %s>|r Profiles %s>|r Profile Tab%s)|r', '|cffFFD900', '|cff5CE1E6', E.data:GetCurrentProfile(), hexElvUIBlue, hexElvUIBlue, hexElvUIBlue, hexElvUIBlue)
 end
 
-local function GetOmniCDDesc1Text()
+local function OmniCDDesc1Text()
 	return E:IsAddOnEnabled('OmniCD') and format('%sCurrent Profile:|r %s%s|r|n%s(|rOmniCD Config %s>|r Profiles%s)|r', '|cffFFD900', '|cff5CE1E6', OmniCD[1].DB:GetCurrentProfile(), hexElvUIBlue, hexElvUIBlue, hexElvUIBlue) or ''
 end
 
-local function GetPlaterDesc1Text()
+local function PlaterDesc1Text()
 	return E:IsAddOnEnabled('Plater') and format('%sCurrent Profile:|r %s%s|r|n%s(|rPlater Config %s>|r Profiles %s>|r Profile Settings%s)|r', '|cffFFD900', '|cff5CE1E6', Plater.db:GetCurrentProfile(), hexElvUIBlue, hexElvUIBlue, hexElvUIBlue, hexElvUIBlue) or ''
+end
+
+local function WeakAuraButtonText(profileID)
+	if not profileID then return Engine:Print('Invalid profile id argument.') end
+	local profileString = Engine.ProfileData.WeakAuras[profileID..'String']
+	if not profileString or profileString == '' then return Engine:Print('No profile string provided.') end
+	local doesExist = Engine.WeakAuras:doesAuraExist(profileString)
+	local profileNum = tonumber(profileID:match('%d+'))
+
+	if _G.PluginInstallFrame:IsShown() and _G.PluginInstallFrame.Title:GetText() == Engine.InstallerData.Title and _G.PluginInstallFrame.CurrentPage == 11 then
+		_G.PluginInstallFrame['Option'..profileNum]:SetText(doesExist and format('%s\n%s(|r%s%s)|r', Engine.ProfileData.WeakAuras[profileID..'ButtonText'], hexElvUIBlue, '|cff99ff33Detected|r', hexElvUIBlue) or Engine.ProfileData.WeakAuras[profileID..'ButtonText'])
+	end
 end
 
 local function SetupProfileButton(addon, profileID, callback)
@@ -88,18 +108,6 @@ local function SetupProfileButton(addon, profileID, callback)
 	if not profileString then return Engine:Print('No profile string provided.') end
 
 	Engine[addon]:SetupProfile(profileString, profileID, callback)
-end
-
-local function SetWeakAuraButtonText(profileID)
-	if not profileID then return Engine:Print('Invalid profile id argument.') end
-	local profileString = Engine.ProfileData.WeakAuras[profileID..'String']
-	if not profileString or profileString == '' then return Engine:Print('No profile string provided.') end
-	local doesExist = Engine.WeakAuras:doesAuraExist(profileString)
-	local profileNum = tonumber(profileID:match('%d+'))
-
-	if _G.PluginInstallFrame:IsShown() and _G.PluginInstallFrame.Title:GetText() == Engine.InstallerData.Title and _G.PluginInstallFrame.CurrentPage == 11 then
-		_G.PluginInstallFrame['Option'..profileNum]:SetText(doesExist and format('%s\n%s(|r%s%s)|r', Engine.ProfileData.WeakAuras[profileID..'ButtonText'], hexElvUIBlue, '|cff99ff33Detected|r', hexElvUIBlue) or Engine.ProfileData.WeakAuras[profileID..'ButtonText'])
-	end
 end
 
 local function SetupOptionPreview()
@@ -250,7 +258,7 @@ Engine.InstallerData = {
 			PluginInstallFrame.SubTitle:SetText(format('%sGlobal Profile (%s)|r', '|cffFFD900', E.title))
 
 			PluginInstallFrame.Desc1:SetText(format('|cff4BEB2C%s', 'This page will set up the global profile for ElvUI. The options in this profile will be shared across all characters on your account.'))
-			PluginInstallFrame.Desc2:SetFormattedText('|cffFFD900%s|r', format('|cffFF3300Warning: |r%s', 'Be warned that this will overwrite your current global profile settings. There is no "undo" button, backup your WTF folder before proceeding.'))
+			PluginInstallFrame.Desc2:SetText(format('|cffFF3300Warning: |r%s', '|cffFFD900Be warned that this will overwrite your current global profile settings. There is no "undo" button, backup your WTF folder before proceeding.|r'))
 
 			PluginInstallFrame.Option1:SetEnabled(true)
 			PluginInstallFrame.Option1:SetScript('OnClick', function() SetupProfileButton('ElvUI', 'Global1') end)
@@ -267,11 +275,11 @@ Engine.InstallerData = {
 
 			PluginInstallFrame.SubTitle:SetText(format('|cffFFD900%s|r', format('General Profile (%s)', E.title)))
 
-			PluginInstallFrame.Desc1:SetText(GetElvUIProfileDesc1Text())
-			PluginInstallFrame.Desc2:SetFormattedText('|cff4BEB2C%s', 'This page will import the profile you clicked into ElvUI and make it the active profile. If the profile you click exists in the list of profiles in ElvUI, it will let you decide to overwrite or change the name of the selected profile.')
+			PluginInstallFrame.Desc1:SetText(ElvUIProfileDescText())
+			PluginInstallFrame.Desc2:SetText('|cff4BEB2CThis page will import the profile you clicked into ElvUI and make it the active profile. If the profile you click exists in the list of profiles in ElvUI, it will let you decide to overwrite or change the name of the selected profile.|r')
 
 			PluginInstallFrame.Option1:SetEnabled(true)
-			PluginInstallFrame.Option1:SetScript('OnClick', function() SetupProfileButton('ElvUI', 'Profile1') PluginInstallFrame.Desc1:SetText(GetElvUIProfileDesc1Text()) end)
+			PluginInstallFrame.Option1:SetScript('OnClick', function() SetupProfileButton('ElvUI', 'Profile1') PluginInstallFrame.Desc1:SetText(ElvUIProfileDescText()) end)
 			PluginInstallFrame.Option1:SetScript('onEnter', function() SetupOptionScripts('onEnter', Engine.ProfileData.ElvUI.Profile1Preview) end)
 			PluginInstallFrame.Option1:SetScript('onLeave', function() SetupOptionScripts('onLeave') end)
 			PluginInstallFrame.Option1:SetText(Engine.ProfileData.ElvUI.Profile1ButtonText)
@@ -288,7 +296,7 @@ Engine.InstallerData = {
 
 			PluginInstallFrame.SubTitle:SetText(format('|cffFFD900Private Profile (%s)|r', E.title))
 
-			PluginInstallFrame.Desc1:SetFormattedText('%sCurrent Private Profile:|r %s%s|r|n%s(|rElvUI Config %s>|r Profiles %s>|r Private Tab%s)|r', '|cffFFD900', '|cff5CE1E6', E.charSettings:GetCurrentProfile(), hexElvUIBlue, hexElvUIBlue, hexElvUIBlue, hexElvUIBlue)
+			PluginInstallFrame.Desc1:SetText(format('%sCurrent Private Profile:|r %s%s|r|n%s(|rElvUI Config %s>|r Profiles %s>|r Private Tab%s)|r', '|cffFFD900', '|cff5CE1E6', E.charSettings:GetCurrentProfile(), hexElvUIBlue, hexElvUIBlue, hexElvUIBlue, hexElvUIBlue))
 
 			PluginInstallFrame.Option1:SetEnabled(true)
 			PluginInstallFrame.Option1:SetScript('OnClick', function() SetupProfileButton('ElvUI', 'Private1') end)
@@ -308,13 +316,12 @@ Engine.InstallerData = {
 
 			PluginInstallFrame.SubTitle:SetFormattedText('|cffFFD900%s|r', 'Details')
 
-			PluginInstallFrame.Desc1:SetText(GetDetailsDesc1Text())
-			PluginInstallFrame.Desc1:SetText(format('%sCurrent Profile:|r %s%s|r|n%s(|rDetails Config %s>|r Options %s>|r Profiles%s)|r', '|cffFFD900', '|cff5CE1E6', Details:GetCurrentProfileName(), hexElvUIBlue, hexElvUIBlue, hexElvUIBlue, hexElvUIBlue))
-			PluginInstallFrame.Desc2:SetText(E:IsAddOnEnabled('Details') and format('%sThis page will setup the Details profile for %s|r', '|cffFFD900', config.Title) or '')
-			PluginInstallFrame.Desc3:SetText(not E:IsAddOnEnabled('Details') and '|cffFF3333WARNING:|r Details! is not enabled to configure.' or '')
+			DetailsDesc1Text()
+			PluginInstallFrame.Desc2:SetText(DetailsDesc2Text())
+			PluginInstallFrame.Desc3:SetText(DetailsDesc3Text())
 
 			PluginInstallFrame.Option1:SetEnabled(E:IsAddOnEnabled('Details'))
-			PluginInstallFrame.Option1:SetScript('OnClick', function() SetupProfileButton('Details', 'Profile1', GetDetailsDesc1Text) end)
+			PluginInstallFrame.Option1:SetScript('OnClick', function() SetupProfileButton('Details', 'Profile1', DetailsDesc1Text) end)
 			PluginInstallFrame.Option1:SetScript('onEnter', function() SetupOptionScripts('onEnter', Engine.ProfileData.Details.Profile1Preview) end)
 			PluginInstallFrame.Option1:SetScript('onLeave', function() SetupOptionScripts('onLeave') end)
 			PluginInstallFrame.Option1:SetText(Engine.ProfileData.Details.Profile1ButtonText)
@@ -333,6 +340,7 @@ Engine.InstallerData = {
 
 			PluginInstallFrame.Desc1:SetText(E:IsAddOnEnabled('BigWigs') and format('%sCurrent Profile:|r %s%s|r|n%s(|rBigWigs Config %s>|r Options %s>|r Profiles%s)|r', '|cffFFD900', '|cff5CE1E6', Engine.BigWigs:GetCurrentProfileName(), hexElvUIBlue, hexElvUIBlue, hexElvUIBlue, hexElvUIBlue) or 'BigWigs is not enabled to setup.')
 			PluginInstallFrame.Desc2:SetFormattedText('|cffFFD900%s|r', format('This page will setup the BigWigs profile for %s', config.Title))
+			PluginInstallFrame.Desc3:SetText(BigWigsDesc3Text())
 
 			PluginInstallFrame.Option1:SetEnabled(E:IsAddOnEnabled('BigWigs'))
 			PluginInstallFrame.Option1:SetScript('OnClick', function() SetupProfileButton('BigWigs', 'Profile1') end)
@@ -350,13 +358,13 @@ Engine.InstallerData = {
 			PluginInstallFrame.tutorialImage:SetTexture(fileName)
 			PluginInstallFrame.tutorialImage:SetSize(size[1], size[2])
 
-			PluginInstallFrame.SubTitle:SetFormattedText('|cffFFD900%s|r', 'OmniCD')
+			PluginInstallFrame.SubTitle:SetText('|cffFFD900OmniCD|r')
 
-			PluginInstallFrame.Desc1:SetText(GetOmniCDDesc1Text())
+			PluginInstallFrame.Desc1:SetText(OmniCDDesc1Text())
 			PluginInstallFrame.Desc2:SetFormattedText('|cffFFD900%s|r', format('This page will setup the OmniCD profile for %s', config.Title))
 
 			PluginInstallFrame.Option1:SetEnabled(E:IsAddOnEnabled('OmniCD'))
-			PluginInstallFrame.Option1:SetScript('OnClick', function() SetupProfileButton('OmniCD', 'Profile1') PluginInstallFrame.Desc1:SetText(GetOmniCDDesc1Text()) end)
+			PluginInstallFrame.Option1:SetScript('OnClick', function() SetupProfileButton('OmniCD', 'Profile1') PluginInstallFrame.Desc1:SetText(OmniCDDesc1Text()) end)
 			PluginInstallFrame.Option1:SetScript('onEnter', function() SetupOptionScripts('onEnter', Engine.ProfileData.OmniCD.Profile1Preview) end)
 			PluginInstallFrame.Option1:SetScript('onLeave', function() SetupOptionScripts('onLeave') end)
 			PluginInstallFrame.Option1:SetText(Engine.ProfileData.OmniCD.Profile1ButtonText)
@@ -373,11 +381,11 @@ Engine.InstallerData = {
 
 			PluginInstallFrame.SubTitle:SetText('|cffFFD900Plater|r')
 
-			PluginInstallFrame.Desc1:SetText(GetPlaterDesc1Text())
+			PluginInstallFrame.Desc1:SetText(PlaterDesc1Text())
 			PluginInstallFrame.Desc2:SetFormattedText('|cffFFD900%s|r', format('This page will setup the Plater profile for %s', config.Title))
 
 			PluginInstallFrame.Option1:SetEnabled(E:IsAddOnEnabled('Plater'))
-			PluginInstallFrame.Option1:SetScript('OnClick', function() SetupProfileButton('Plater', 'Profile1', GetPlaterDesc1Text) end)
+			PluginInstallFrame.Option1:SetScript('OnClick', function() SetupProfileButton('Plater', 'Profile1', PlaterDesc1Text) end)
 			PluginInstallFrame.Option1:SetScript('onEnter', function() SetupOptionScripts('onEnter', Engine.ProfileData.Plater.Profile1Preview) end)
 			PluginInstallFrame.Option1:SetScript('onLeave', function() SetupOptionScripts('onLeave') end)
 			PluginInstallFrame.Option1:SetText('Setup Plater')
@@ -416,23 +424,23 @@ Engine.InstallerData = {
 			PluginInstallFrame.Desc2:SetText('|cffFFFF00Note:|r Once these are installed, you can update them with the wago app.')
 
 			PluginInstallFrame.Option1:SetEnabled(E:IsAddOnEnabled('WeakAuras'))
-			PluginInstallFrame.Option1:SetScript('OnClick', function() SetupProfileButton('WeakAuras', 'Profile1', SetWeakAuraButtonText) end)
-			SetWeakAuraButtonText('Profile1')
+			PluginInstallFrame.Option1:SetScript('OnClick', function() SetupProfileButton('WeakAuras', 'Profile1', WeakAuraButtonText) end)
+			WeakAuraButtonText('Profile1')
 			PluginInstallFrame.Option1:Show()
 
 			PluginInstallFrame.Option2:SetEnabled(E:IsAddOnEnabled('WeakAuras'))
-			PluginInstallFrame.Option2:SetScript('OnClick', function() SetupProfileButton('WeakAuras', 'Profile2', SetWeakAuraButtonText) end)
-			SetWeakAuraButtonText('Profile2')
+			PluginInstallFrame.Option2:SetScript('OnClick', function() SetupProfileButton('WeakAuras', 'Profile2', WeakAuraButtonText) end)
+			WeakAuraButtonText('Profile2')
 			PluginInstallFrame.Option2:Show()
 
 			PluginInstallFrame.Option3:SetEnabled(E:IsAddOnEnabled('WeakAuras'))
-			PluginInstallFrame.Option3:SetScript('OnClick', function() SetupProfileButton('WeakAuras', 'Profile3', SetWeakAuraButtonText) end)
-			SetWeakAuraButtonText('Profile3')
+			PluginInstallFrame.Option3:SetScript('OnClick', function() SetupProfileButton('WeakAuras', 'Profile3', WeakAuraButtonText) end)
+			WeakAuraButtonText('Profile3')
 			PluginInstallFrame.Option3:Show()
 
 			PluginInstallFrame.Option4:SetEnabled(E:IsAddOnEnabled('WeakAuras'))
-			PluginInstallFrame.Option4:SetScript('OnClick', function() SetupProfileButton('WeakAuras', 'Profile4', SetWeakAuraButtonText) end)
-			SetWeakAuraButtonText('Profile4')
+			PluginInstallFrame.Option4:SetScript('OnClick', function() SetupProfileButton('WeakAuras', 'Profile4', WeakAuraButtonText) end)
+			WeakAuraButtonText('Profile4')
 			PluginInstallFrame.Option4:Show()
 		end,
 		[12] = function()
