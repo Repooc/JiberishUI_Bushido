@@ -53,11 +53,15 @@ local function GetStoryImage(page)
 	return image, bushidoStory[page].size
 end
 
-local function GetBlizzardDesc1Text()
+local function BigWigsDesc3Text()
+	return not E:IsAddOnEnabled('BigWigs') and '|cffFF3333WARNING:|r Details! is not enabled to configure.' or ''
+end
+
+local function BlizzardDesc1Text()
 	local EMO = E.Libs.EditModeOverride
 	EMO:LoadLayouts()
 	local activeLayout = EMO:GetActiveLayout()
-	PluginInstallFrame.Desc1:SetText(format('%sCurrent Layout:|r %s%s|r|n%s(|rHit ESC %s>|r Edit Mode %s>|r Layout%s)|r', '|cffFFD900', '|cff5CE1E6', activeLayout, hexElvUIBlue, hexElvUIBlue, hexElvUIBlue, hexElvUIBlue))
+	_G.PluginInstallFrame.Desc1:SetText(format('%sCurrent Layout:|r %s%s|r|n%s(|rHit ESC %s>|r Edit Mode %s>|r Layout%s)|r', '|cffFFD900', '|cff5CE1E6', activeLayout, hexElvUIBlue, hexElvUIBlue, hexElvUIBlue, hexElvUIBlue))
 end
 
 local function GetDetailsDesc1Text()
@@ -225,7 +229,7 @@ Engine.InstallerData = {
 			end
 
 			PluginInstallFrame.Option1:SetEnabled(true)
-			PluginInstallFrame.Option1:SetScript('OnClick', function() SetupProfileButton('Blizzard', 'Profile1', GetBlizzardDesc1Text) end)
+			PluginInstallFrame.Option1:SetScript('OnClick', function() SetupProfileButton('Blizzard', 'Profile1', BlizzardDesc1Text) end)
 			PluginInstallFrame.Option1:SetText(format('%s %s', E:TextureString([[Interface\AddOns\JiberishUI_Bushido\Media\Blizzard]], ':25:55'), 'Layout'))
 			PluginInstallFrame.Option1:SetShown(E.Retail)
 
@@ -243,7 +247,7 @@ Engine.InstallerData = {
 			PluginInstallFrame.tutorialImage:SetTexture(fileName)
 			PluginInstallFrame.tutorialImage:SetSize(size[1], size[2])
 
-			PluginInstallFrame.SubTitle:SetFormattedText('|cffFFD900%s|r', format('Global Profile (%s)', E.title))
+			PluginInstallFrame.SubTitle:SetText(format('%sGlobal Profile (%s)|r', '|cffFFD900', E.title))
 
 			PluginInstallFrame.Desc1:SetText(format('|cff4BEB2C%s', 'This page will set up the global profile for ElvUI. The options in this profile will be shared across all characters on your account.'))
 			PluginInstallFrame.Desc2:SetFormattedText('|cffFFD900%s|r', format('|cffFF3300Warning: |r%s', 'Be warned that this will overwrite your current global profile settings. There is no "undo" button, backup your WTF folder before proceeding.'))
@@ -282,7 +286,7 @@ Engine.InstallerData = {
 			PluginInstallFrame.tutorialImage:SetTexture(fileName)
 			PluginInstallFrame.tutorialImage:SetSize(size[1], size[2])
 
-			PluginInstallFrame.SubTitle:SetFormattedText('|cffFFD900%s|r', format('Private Profile (%s)', E.title))
+			PluginInstallFrame.SubTitle:SetText(format('|cffFFD900Private Profile (%s)|r', E.title))
 
 			PluginInstallFrame.Desc1:SetFormattedText('%sCurrent Private Profile:|r %s%s|r|n%s(|rElvUI Config %s>|r Profiles %s>|r Private Tab%s)|r', '|cffFFD900', '|cff5CE1E6', E.charSettings:GetCurrentProfile(), hexElvUIBlue, hexElvUIBlue, hexElvUIBlue, hexElvUIBlue)
 
@@ -325,7 +329,7 @@ Engine.InstallerData = {
 			PluginInstallFrame.tutorialImage:SetTexture(fileName)
 			PluginInstallFrame.tutorialImage:SetSize(size[1], size[2])
 
-			PluginInstallFrame.SubTitle:SetFormattedText('|cffFFD900%s|r', 'BigWigs')
+			PluginInstallFrame.SubTitle:SetText('|cffFFD900BigWigs|r')
 
 			PluginInstallFrame.Desc1:SetText(E:IsAddOnEnabled('BigWigs') and format('%sCurrent Profile:|r %s%s|r|n%s(|rBigWigs Config %s>|r Options %s>|r Profiles%s)|r', '|cffFFD900', '|cff5CE1E6', Engine.BigWigs:GetCurrentProfileName(), hexElvUIBlue, hexElvUIBlue, hexElvUIBlue, hexElvUIBlue) or 'BigWigs is not enabled to setup.')
 			PluginInstallFrame.Desc2:SetFormattedText('|cffFFD900%s|r', format('This page will setup the BigWigs profile for %s', config.Title))
@@ -406,7 +410,7 @@ Engine.InstallerData = {
 			PluginInstallFrame.tutorialImage:SetTexture(fileName)
 			PluginInstallFrame.tutorialImage:SetSize(size[1], size[2])
 
-			PluginInstallFrame.SubTitle:SetFormattedText('|cffFFD900%s|r', 'WeakAuras')
+			PluginInstallFrame.SubTitle:SetText('|cffFFD900WeakAuras|r')
 
 			PluginInstallFrame.Desc1:SetFormattedText('|cffFFD900%s|r', 'This step will let you import my |cff4beb2cBushido|r |cffFFFF00WeakAuras|r that I use for the layout.')
 			PluginInstallFrame.Desc2:SetText('|cffFFFF00Note:|r Once these are installed, you can update them with the wago app.')
