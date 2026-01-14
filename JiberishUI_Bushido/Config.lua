@@ -1,9 +1,9 @@
 local AddOnName, Engine = ...
 local E = unpack(ElvUI)
 
-Engine.Config.MinElvUI = 13.92 --* Minimum version of ElvUI this profile should support
+Engine.Config.MinElvUI = 14.06 --* Minimum version of ElvUI this profile should support
 Engine.Config.Logo = [[Interface\AddOns\JiberishUI_Bushido\Media\BushidoLogo1024x1024DuelBuilding3Resize1]] --* Fallback Logo image that is shown in the installer
-Engine.Config.Discord = 'https://discord.gg/jiberish'
+Engine.Config.Discord = 'https://discord.gg/MCEASVszxR'
 Engine.Config.Installer = {
 	StepTitleTextJustification = 'CENTER', --* Default: 'CENTER' (Available Options: 'LEFT', 'RIGHT', 'CENTER')
 	StepTitlesColor = { 1, 217 / 255, 0 }, --* Currently: #FFD900 (I converted the hex to rgb(255, 217, 0) which you divide each number by 255 which results in 1, 217 / 255, 0 since 217/255 is crazy long number, i just let it do the math lol)
